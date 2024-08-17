@@ -1,4 +1,4 @@
-interface sram_interface(input clk, input rstn);
+interface sram_if(input clk, input rstn);
   
  // Signals to SRAM  
   logic [14:0] addr;

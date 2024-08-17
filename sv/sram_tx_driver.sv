@@ -1,6 +1,6 @@
 class sram_tx_driver extends uvm_driver#(sram_packet);
   int num_sent; // int default to 0
-  virtual interface sram_if vif;
+  virtual sram_if vif;
 
   `uvm_object_utils_begin(sram_tx_driver)
     `uvm_field_int(num_sent, UVM_ALL_ON)
