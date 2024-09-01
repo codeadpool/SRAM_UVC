@@ -11,7 +11,7 @@ The project encompasses:
 - A testbench to integrate the UVC with the DUT (Device Under Test)
 
 ## File Structure
-
+```
 * `src`
   └── `sram_if.sv`
   └── `sram_driver.sv`
@@ -30,3 +30,4 @@ The project encompasses:
 * `root`
   └── `sram_config.sv`
   └── `sram_utils.sv`
+```
