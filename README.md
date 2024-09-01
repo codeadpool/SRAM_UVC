@@ -12,22 +12,22 @@ The project encompasses:
 
 ## File Structure
 ```
-* `src`
-  └── `sram_if.sv`
-  └── `sram_driver.sv`
-  └── `sram_monitor.sv`
-  └── `sram_sequencer.sv`
-  └── `sram_scoreboard.sv`
-  └── `sram_cov.sv`
-  └── `sram_agent.sv`
-  └── `sram_env.sv`
-  └── `sram_seq.sv`
-  └── `sram_seq_item.sv`
-* `tb`
-  └── `sram_tb.sv`
-* `doc`
+* src
+  └── sram_if.sv
+  └── sram_driver.sv
+  └── sram_monitor.sv
+  └── sram_sequencer.sv
+  └── sram_scoreboard.sv
+  └── sram_cov.sv
+  └── sram_agent.sv
+  └── sram_env.sv
+  └── sram_seq.sv
+  └── sram_seq_item.sv
+* tb
+  └── sram_tb.sv
+* doc
   └── Project documentation and related resources
-* `root`
-  └── `sram_config.sv`
-  └── `sram_utils.sv`
+* root
+  └── sram_config.sv
+  └── sram_utils.sv
 ```
