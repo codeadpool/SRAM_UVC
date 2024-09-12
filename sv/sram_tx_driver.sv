@@ -11,7 +11,7 @@ class sram_tx_driver extends uvm_driver#(sram_packet);
   endfunction
 
   function void connect_phase (uvm_phase phase);
-    if (!uvm_config_db#(virtual interface sram_if)::get(this, "", "vif", vif)) begin
+    if (!uvm_config_db#(virtual sram_if)::get(this, "", "vif", vif)) begin
       `uvm_error("NOVIF", $sformatf("Virtual interface hasn't been set up for: %s.vif", get_full_name()))
     end
   endfunction
