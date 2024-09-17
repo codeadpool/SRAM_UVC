@@ -1,3 +1,6 @@
+`ifndef SRAM_SEQUENCER 
+`define SRAM_SEQUENCER
+
 class sram_tx_sequencer extends uvm_sequencer #(sram_packet);
   
   `uvm_component_utils(sram_tx_sequencer)
@@ -11,3 +14,4 @@ class sram_tx_sequencer extends uvm_sequencer #(sram_packet);
   endfunction : start_of_simulation_phase
   
 endclass
+`endif

@@ -1,3 +1,6 @@
+`ifndef SRAM_PACKAGE 
+`define SRAM_PACKAGE
+
 package sram_package;
   import uvm_pkg::*;
   `include "uvm_macros.svh"
@@ -14,3 +17,4 @@ package sram_package;
   
   `include "sram_env.sv"
 endpackage
+`endif
