@@ -1,3 +1,6 @@
+`ifndef SRAM_INTERFACE 
+`define SRAM_INTERFACE
+
 interface sram_interface(
   input logic clk,
   input logic rstn
@@ -10,6 +13,22 @@ interface sram_interface(
   
   // Signals for Monitoring
   logic valid_tx;    
+
+  clocking w_cb@(posedge clk);
+    input addr;
+    input din;
+    input we; 
+    input valid_tx;
+  endclocking
+
+  modport WRITE(clocking w_cb, input clk, rstn);
+  
+  clocking r_cb@(posedge clk);
+    input addr;
+    output dout;
+  endclocking
+  
+  modport READ(clocking r_cb, input clk, rstn);
 
   task sram_reset();
     @(negedge rstn);
@@ -51,3 +70,5 @@ interface sram_interface(
   endtask
 
 endinterface
+
+`endif 
