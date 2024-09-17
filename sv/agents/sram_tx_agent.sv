@@ -1,3 +1,6 @@
+`ifndef SRAM_AGENT 
+`define SRAM_AGENT
+
 class sram_tx_agent extends uvm_agent;
   uvm_active_passive_enum is_active = UVM_PASSIVE;
   // by default this is passive;
@@ -16,6 +19,7 @@ class sram_tx_agent extends uvm_agent;
 
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+
     m_mon0 = sram_tx_monitor::type_id::create("m_mon0",this); 
     if(get_is_active()) begin
       m_seqr0 = sram_tx_sequencer::type_id::create("m_seqr0", this);
@@ -25,7 +29,7 @@ class sram_tx_agent extends uvm_agent;
 
   virtual function void connect_phase(uvm_phase phase);
     if(get_is_active()) begin
-      m_drv0.seq_item_port.connect(m_seqr0.item_export);
+      m_drv0.seq_item_port.connect(m_seqr0.seq_item_port);
     end 
   endfunction : connect_phase
 
@@ -41,3 +45,4 @@ class sram_tx_agent extends uvm_agent;
   endfunction      
 
 endclass
+`endif

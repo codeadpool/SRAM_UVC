@@ -1,7 +1,10 @@
+`ifndef SRAM_PACKET 
+`define SRAM_PACKET
+
 class sram_packet extends uvm_sequence_item;
   rand bit [14:0] addr;
   rand bit [255:0] din;
-  bit we_n;
+  rand  bit we_n;
   
   `uvm_object_utils_begin(sram_packet)
    `uvm_field_int(addr, UVM_ALL_ON)
@@ -27,3 +30,4 @@ class sram_packet extends uvm_sequence_item;
   }
 
 endclass
+`endif

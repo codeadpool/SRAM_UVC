@@ -65,10 +65,7 @@ interface sram_interface(
 
     // Wait for the read data to become valid
     @(posedge clk);
-    data_out = dout;  // Capture the output data
-    valid_tx <= 1'b0; 
-  endtask
-
+    data_out = dout;  // Capture the output data valid_tx <= 1'b0; endtask
 endinterface
 
 `endif 
