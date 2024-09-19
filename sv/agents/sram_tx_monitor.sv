@@ -14,7 +14,7 @@ class sram_tx_monitor extends uvm_monitor;
   //cover_t coverage_toggle = COV_ENABLE;
   //
   // uvm_analysis_port is used to broadcast the collected packet to others.
-  `uvm_analysis_port #(sram_packet) ap; 
+  uvm_analysis_port #(sram_packet) ap; 
 
   `uvm_component_utils_begin(sram_tx_monitor)
     `uvm_field_int(num_pkt_cltd, UVM_ALL_ON)
