@@ -72,6 +72,13 @@ class sram_tx_monitor extends uvm_monitor;
     super.new(name, parent);
     
     ap = new("ap", this);
+    // we are using normal new to create this rather than create, cause 
+    // TLM Connection objects are tightly associated with specifically
+    // named communication methods. 
+
+    // using new() ties specific communication methods to the like write()
+    // directly to the object, reducing the risk of replacing it with an
+    // incompatible type 
   endfunction
 
   virtual function void build_phase(uvm_phase phase);
@@ -97,11 +104,15 @@ class sram_tx_monitor extends uvm_monitor;
 
     forever begin
      pkt = sram_packet::type_id::create("pkt", this);
+     //collected packet
+
      fork
       vif.read_from_sram(pkt.address, pkt.datain, pkt.wen);
       @(posedge vif.tx_valid);
       begin_tr(pkt,"Monitor_SRAM_Packet");
       ap.write(pkt);
+      // write() only sends the reference pointer of the data item.
+      // so better to clone the data in the scoreboard.
      join
 
     end_tr(pkt);

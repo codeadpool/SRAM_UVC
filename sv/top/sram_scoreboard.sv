@@ -7,6 +7,10 @@ class sram_scoreboard extends uvm_scoreboard;
 
   uvm_analysis_export#(sram_packet) mon2sb_export, rm2sb_export;
   uvm_tlm_analysis_fifo #(sram_packet) mon2sb_export_fifo, rm2sb_export_fifo;
+  
+  `uvm_analysis_imp_decl(_sram_packet)
+  // with above we can get subclass "uvm_analysis_export#(sram_packet)" and
+  // a method of subclass "write_sram_packet()" 
 
   sram_packet exp_pkt, act_pkt;
   sram_packet exp_pkt_fifo, act_pkt_fifo;
