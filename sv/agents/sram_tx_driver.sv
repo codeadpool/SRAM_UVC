@@ -42,6 +42,7 @@ class sram_tx_driver extends uvm_driver#(sram_packet);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM);
 
     forever begin
+      @(posedge vif.clk);
       seq_item_port.get(req); 
       `uvm_info(get_type_name(), $sformatf("Sending Packet:\n%s", req.sprint()), UVM_HIGH)
 
@@ -51,7 +52,6 @@ class sram_tx_driver extends uvm_driver#(sram_packet);
         @(posedge vif.tx_valid); 
         begin_tr(req, "Driver_SRAM_Packet");
       join
-
       end_tr(req);
       num_sent++;
 

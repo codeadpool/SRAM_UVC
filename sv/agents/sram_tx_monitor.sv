@@ -6,13 +6,13 @@
 class sram_tx_monitor extends uvm_monitor;
   
   //collected data handle
-  sram_packet pkt;
+  sram_packet write_pkt;
+  sram_packet read_pkt;
 
   virtual sram_if vif;
   int num_pkt_cltd;
-
   //cover_t coverage_toggle = COV_ENABLE;
-  //
+
   // uvm_analysis_port is used to broadcast the collected packet to others.
   uvm_analysis_port #(sram_packet) ap; 
 
@@ -72,6 +72,13 @@ class sram_tx_monitor extends uvm_monitor;
     super.new(name, parent);
     
     ap = new("ap", this);
+    // we are using normal new to create this rather than create, cause 
+    // TLM Connection objects are tightly associated with specifically
+    // named communication methods. 
+
+    // using new() ties specific communication methods to the like write()
+    // directly to the object, reducing the risk of replacing it with an
+    // incompatible type 
   endfunction
 
   virtual function void build_phase(uvm_phase phase);
@@ -89,24 +96,25 @@ class sram_tx_monitor extends uvm_monitor;
   endfunction : build_phase
 
   virtual task run_phase(uvm_phase phase);
-    //wait(!vif.rstn);
-    //wait(vif.rstn);
-    @(posedge vif.rstn);
-    @(negedge vif.rstn);
-    `uvm_info(get_type_name(), "Reset Done", UVM_MEDIUM)
-
     forever begin
-     pkt = sram_packet::type_id::create("pkt", this);
-     fork
-      vif.read_from_sram(pkt.address, pkt.datain, pkt.wen);
-      @(posedge vif.tx_valid);
-      begin_tr(pkt,"Monitor_SRAM_Packet");
-      ap.write(pkt);
-     join
-
-    end_tr(pkt);
-    num_pkt_cltd++;
-    end 
+      @(posedge vif.clk) 
+      if(vif.wen)begin
+        //creating a write packet
+        write_pkt = sram_packet::type_id::create("write_pkt");
+        write_pkt.addr = vif.addr;
+        write_pkt.din = vif.din;
+        //sending the packet to the scoreboard
+        ap.write(write_pkt);
+      end
+      if(!vif.wen)begin
+        //creating a read packet
+        read_pkt = sram_packet::type_id::create("read_pkt");
+        read_pkt. addr = vif.addr;
+        read_pkt. dout = vif.dout;
+        //sending the packet to the scoreboard
+        ap.write(read_pkt);
+      end
+    end
   endtask : run_phase
 
   virtual function void report_phase(uvm_phase phase);
