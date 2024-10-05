@@ -2,8 +2,8 @@
 `define SRAM_AGENT
 
 class sram_tx_agent extends uvm_agent;
-  uvm_active_passive_enum is_active = UVM_PASSIVE;
-  // by default this is passive;
+  uvm_active_passive_enum is_active = UVM_ACTIVE;
+  // by default this is active;
 
   `uvm_component_utils_begin(sram_tx_agent)
     `uvm_field_enum(uvm_active_passive_enum, is_active, UVM_ALL_ON)
