@@ -1,6 +1,7 @@
 `ifndef SRAM_ENV 
 `define SRAM_ENV
 class sram_env extends uvm_env;
+
   sram_tx_agent agent;
   sram_coverage cov;
   sram_scoreboard sb;

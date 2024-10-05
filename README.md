@@ -12,22 +12,40 @@ The project encompasses:
 
 ## File Structure
 ```
-* src
-  └── sram_if.sv
-  └── sram_driver.sv
-  └── sram_monitor.sv
-  └── sram_sequencer.sv
-  └── sram_scoreboard.sv
-  └── sram_cov.sv
-  └── sram_agent.sv
-  └── sram_env.sv
-  └── sram_seq.sv
-  └── sram_seq_item.sv
-* tb
-  └── sram_tb.sv
-* doc
-  └── Project documentation and related resources
-* root
-  └── sram_config.sv
-  └── sram_utils.sv
+docs
+├── openram-sram-uarch.png
+├── srambank_128x256_6t.lib
+└── VITAL SDF Simulation.pdf
+├── dut
+│   ├── sram_cell_6t.sv
+│   ├── sram_cpp_model.cpp
+│   └── sram_memory_array.sv
+├── README.md
+├── sv
+│   ├── agents
+│   │   ├── sram_agent_pkg.sv
+│   │   ├── sram_defines.svh
+│   │   ├── sram_packet.sv
+│   │   ├── sram_tx_agent_config.sv
+│   │   ├── sram_tx_agent.sv
+│   │   ├── sram_tx_driver.sv
+│   │   ├── sram_tx_monitor.sv
+│   │   └── sram_tx_sequencer.sv
+│   ├── ref_dut
+│   └── top
+│       ├── sram_coverage.sv
+│       ├── sram_env_pkg.sv
+│       ├── sram_env.sv
+│       └── sram_scoreboard.sv
+├── tb
+│   ├── sram_if.sv
+│   └── sram_tb_top.sv
+└── tests
+    ├── seq_lib
+    │   ├── n_pkt_seq.sv
+    │   ├── sram_basic_seq.sv
+    │   └── sram_seq_list.sv
+    └── src
+        ├── sram_basic_test.sv
+        └── sram_test_lib.sv
 ```
