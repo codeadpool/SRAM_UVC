@@ -3,7 +3,7 @@
 class sram_basic_test extends uvm_test;
   
   `uvm_component_utils(sram_basic_test)
-  sram_env sram;
+  sram_env env;
 
   function new(string name = "sram_basic_test", uvm_component parent);
     super.new(name, parent);
@@ -11,7 +11,7 @@ class sram_basic_test extends uvm_test;
 
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    sram = sram_env::type_id::create("sram", this);
+    env = sram_env::type_id::create("env", this);
   endfunction : build_phase
 
   virtual function void end_of_elaboration_phase(uvm_phase phase);
