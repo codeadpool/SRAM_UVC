@@ -9,8 +9,7 @@ class exhstve_seq_test extends sram_basic_test;
   endfunction
   
   virtual function void build_phase(uvm_phase phase);
-    sram_pkt::type_id::set_type_override(sram_packet::get_type());
-    uvm_config_db#(uvm_object_wrapper)::set(this, "env.agent.m_seqr0.run_phase", "default_sequence", n_pkt_seq::get_type());
+    uvm_config_wrapper::set(this, "env.agent.m_seqr0.run_phase", "default_sequence", n_pkt_seq::get_type());
     super.build_phase(phase);
   endfunction : build_phase
         
