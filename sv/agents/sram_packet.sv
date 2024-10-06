@@ -15,19 +15,11 @@ class sram_packet extends uvm_sequence_item;
   function new (string name = "sram_packet");
     super.new(name);
   endfunction
-  
-  constraint data_bias_zero {
-    data== 256'b0;
-    }
-  constraint data_bias_one {  
-    data== 256'b1;
-    }
-  constraint data_bias {
-    data inside {[256'b0, 256'b1]}; 
-  }
-  constraint data_bias_dist {
-    data dist {256'b0:= 50, 256'b1:= 50};
-  }
+
+  constraint data_bias_zero { din== 256'b0; }
+  constraint data_bias_one  { din== 256'b1; }
+  constraint data_bias { din inside {[256'b0, 256'b1]}; }
+  constraint data_bias_dist { din dist {256'b0:= 50, 256'b1:= 50}; }
 
 endclass
 `endif

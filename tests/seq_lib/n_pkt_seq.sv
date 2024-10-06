@@ -11,6 +11,10 @@ class n_pkt_seq extends sram_basic_seq;
   virtual task body();
     `uvm_info(get_type_name(), "Executing N_PKT_SEQ", UVM_MEDIUM)
     repeat (5) begin
+      // I think we are using req handle from basic_seq class
+      // sram_packet pkt = sram_packet::type_id::create("pkt");
+      assert(req.randomize()) else
+        `uvm_fatal("RANDOMIZATION_FAILURE", "Failed to randomize req")
       `uvm_do(req)
     end 
   endtask
