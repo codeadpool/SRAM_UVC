@@ -1,10 +1,6 @@
 `ifndef SRAM_TB_TOP
 `define SRAM_TB_TOP
-`include "uvm_macros.svh"
-`include "sram_if.sv"
-import uvm_pkg::*;
-
-module sram_tb_tob; 
+module hw_top;
   parameter cycle = 10;
   bit clk;
   bit rstn;
@@ -27,10 +23,5 @@ module sram_tb_tob;
     .dout(intf.dout),
     .we  (intf.we  )
     );
-
-    initial begin
-      uvm_config_db#(virtual sram_if)::set(uvm_root::get(), "*", "intf", sram_if);
-      run_test();
-    end
 
 endmodule
