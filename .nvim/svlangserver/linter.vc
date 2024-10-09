@@ -1,7 +1,0 @@
--v /home/shadow-monarch/projects/sram_uvc/sv/sram_pkg.sv
-+incdir+/home/shadow-monarch/projects/sram_uvc/dut
-+incdir+/home/shadow-monarch/projects/sram_uvc/sv
-+incdir+/home/shadow-monarch/projects/sram_uvc/tb
-+incdir+/home/shadow-monarch/projects/sram_uvc/dut
-+incdir+/home/shadow-monarch/projects/sram_uvc/sv
-+incdir+/home/shadow-monarch/projects/sram_uvc/tb
