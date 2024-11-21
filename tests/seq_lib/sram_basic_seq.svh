@@ -25,4 +25,5 @@ class sram_basic_seq extends uvm_sequence #(sram_packet);
       `uvm_info(get_type_name(), "drop objection", UVM_MEDIUM)
     end
   endtask
+endclass
 `endif
