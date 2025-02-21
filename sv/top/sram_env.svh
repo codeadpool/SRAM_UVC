@@ -1,10 +1,12 @@
-`ifndef SRAM_ENV 
-`define SRAM_ENV
+`ifndef SRAM_ENV_SVH
+`define SRAM_ENV_SVH
+
 class sram_env extends uvm_env;
 
-  sram_tx_agent agent;
-  sram_coverage cov;
-  sram_scoreboard sb;
+  sram_agent      agent;
+  sram_coverage   cov;
+  sram_scoreboard scb;
+  sram_agent_cfg  agent_cfg;
     
   `uvm_component_utils(sram_env)
 
@@ -15,18 +17,22 @@ class sram_env extends uvm_env;
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     
-    agent = sram_tx_agent::type_id::create("agent", this);
-    cov   = sram_coverage::type_id::create("cov"  , this);
-    sb    = sram_scoreboard::type_id::create("sb" , this);
+    if(!uvm_config_db#(sram_agent_cfg)::get(this, "", "agent_cfg", agent_cfg))
+      agent_cfg = sram_agent_cfg::type_id::create("agent_cfg");
+    
+    agent = sram_agent::type_id::create("agent", this);
+    cov   = sram_coverage#(sram_packet)::type_id::create("cov"  , this);
+    scb   = sram_scoreboard::type_id::create("scb" , this);
+    
+    uvm_config_db#(sram_agent_cfg)::set(this, "scb", "agent_cfg", agent_cfg);
   endfunction : build_phase
 
   virtual function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
 
-    // ports are always connected to implementations
-    agent.m_mon0.ap.connect(sb.ap);
-    //coverage is extended by subscriber which has implied analysis_export 
-    agent.m_mon0.ap.connect(cov.analysis_export);
+    agent.m_drv.drv_ap.connect(scb.drv_imp);
+    agent.m_mon.mon_ap.connect(scb.mon_imp);
   endfunction : connect_phase
 endclass
+
 `endif

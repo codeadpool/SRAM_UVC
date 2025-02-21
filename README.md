@@ -53,5 +53,6 @@ The project encompasses:
         ├── exhaustive_seq_test.sv   # Exhaustive testing sequences
         ├── rd_wr_test.sv            # Read/Write test cases
         ├── sram_basic_test.sv       # Basic test for SRAM functionality
-        └── sram_test_lib.svh        # Test library with shared utilities``
+        └── sram_test_lib.svh        # Test library with shared utilities
+
 ```

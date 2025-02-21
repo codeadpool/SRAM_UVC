@@ -1,28 +1,35 @@
+`ifndef SRAM_MEMORY_ARRAY
+`define SRAM_MEMORY_ARRAY
+
 module sram #(
-    parameter DATA_WIDTH = 8,     // Width of the data bus
-    parameter ADDR_WIDTH = 4,     // Width of the address bus
-    parameter DEPTH = 2**ADDR_WIDTH // Depth of the SRAM (2^ADDR_WIDTH)
+    parameter DATA_WIDTH = 8,       
+    parameter ADDR_WIDTH = 4
 ) (
     input  logic                  clk,     // Clock signal
-    input  logic                  we,      // Write enable signal
-    input  logic [ADDR_WIDTH-1:0] addr,   // Address input
-    input  logic [DATA_WIDTH-1:0] din,    // Data input
-    output logic [DATA_WIDTH-1:0] dout    // Data output
+    input  logic                  rstn,    // Active-low reset (resets output register)
+    input  logic                  we_n,    // Active-low write enable
+    
+    input  logic [ADDR_WIDTH-1:0] addr,    // Address input
+    input  logic [DATA_WIDTH-1:0] din,     // Data input
+    output logic [DATA_WIDTH-1:0] dout     // Data output (registered)
 );
 
-    // Memory array
+    localparam DEPTH = 2**ADDR_WIDTH;
     logic [DATA_WIDTH-1:0] mem [0:DEPTH-1];
 
-    // Write operation
     always_ff @(posedge clk) begin
-        if (we) begin
-            mem[addr] <= din; // Write data to specified address
+        if (!we_n) begin
+            mem[addr] <= din;
         end
     end
 
-    // Read operation
-    always_ff @(posedge clk) begin
-        dout <= mem[addr]; // Read data from specified address
+    always_ff @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            dout <= '0;           
+        end else begin
+            dout <= mem[addr];
+        end
     end
-
 endmodule
+
+`endif
